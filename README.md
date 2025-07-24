@@ -1,4 +1,5 @@
 # htb-md
+This repository contains walkthroughs of machines and challenges. 
 
 🔐 Hack The Box Walkthroughs 
 ---
