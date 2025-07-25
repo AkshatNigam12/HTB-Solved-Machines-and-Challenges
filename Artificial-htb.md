@@ -1,4 +1,4 @@
-# HTB Machine: Artificial
+# 🚪 Hack The Box – Artificial (Easy)
 Machine Type: Linux | Solved by: Akshat Nigam | Category:Web Exploitation, Docker Misconfiguration, Privilege Escalation | Difficulty: Easy | Attack Surface:HTTP (port 80), TensorFlow via file upload
 ## Initial Enumeration
 
