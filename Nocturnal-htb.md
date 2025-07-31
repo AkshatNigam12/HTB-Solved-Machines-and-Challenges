@@ -100,7 +100,7 @@ ss -tulnp
 * Port 8080 open internally
 
 ```
-ssh tobias@nocturnal.htb -L 9090:127.0.0.1:8080
+ssh tobias@nocturnal.htb -L 8888:127.0.0.1:8080
 ```
 
 * Found ISPConfig panel
