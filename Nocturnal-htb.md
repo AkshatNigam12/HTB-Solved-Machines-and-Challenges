@@ -1,4 +1,4 @@
-# 👨‍💻 Hackt The Box - Nocturnal Walkthrough
+# 👨‍💻 Hack The Box - Nocturnal Walkthrough
 
 * **Machine Type**: Linux
 * **Solved by**: Akshat Nigam
